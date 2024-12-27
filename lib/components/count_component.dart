@@ -16,7 +16,7 @@ class CountComponent extends TextComponent
           textRenderer: TextPaint(
             style: const TextStyle(
                 color: Color(0xFFFFFFFF),
-                fontSize: 48,
+                fontSize: 40,
                 fontWeight: FontWeight.bold),
           ),
         );

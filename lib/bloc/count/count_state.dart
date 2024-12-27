@@ -4,8 +4,8 @@ enum GameStatus { initial, playing, paused, over }
 
 class CountState extends Equatable {
   final int score;
-  final int life;
   final GameStatus gameStatus;
+  final int life;
   const CountState({
     this.score = 0,
     this.gameStatus = GameStatus.initial,
@@ -25,5 +25,5 @@ class CountState extends Equatable {
   }
 
   @override
-  List<Object?> get props => [score, gameStatus];
+  List<Object?> get props => [score, gameStatus, life];
 }

@@ -6,29 +6,48 @@ import 'package:flutter/widgets.dart';
 import 'package:snake/bloc/count/count_cubit.dart';
 import 'package:snake/space_ship_game.dart';
 
-class LifeIndicator extends TextComponent
+class LifeIndicator extends SpriteComponent
     with
-        FlameBlocListenable<CountCubit, CountState>,
-        HasGameRef<SpaceShipGame> {
+        HasGameRef<SpaceShipGame>,
+        FlameBlocListenable<CountCubit, CountState> {
   LifeIndicator()
       : super(
-          textRenderer: TextPaint(
-            style: const TextStyle(
-                color: Color.fromARGB(255, 255, 0, 0),
-                fontSize: 48,
-                fontWeight: FontWeight.bold),
-          ),
+          size: Vector2(32, 32),
+          anchor: Anchor.center,
         );
+  @override
+  Future<void> onLoad() async {
+    super.onLoad();
+    sprite = await Sprite.load("heart.png");
+    add(TextComponent(
+      text: "3",
+      position: Vector2(40, 0),
+      textRenderer: TextPaint(
+        style: const TextStyle(fontSize: 28),
+      ),
+    ));
+    position = Vector2(game.size.x * 0.80, 20);
+  }
 
   @override
-  FutureOr<void> onLoad() {
-    super.onLoad();
-    text = '3';
-    position = Vector2(game.size.x * 0.80, 0);
+  void render(Canvas canvas) {
+    super.render(canvas);
   }
 
   @override
   void onNewState(state) {
-    text = state.life.toString();
+    children.query<TextComponent>().forEach(remove);
+    add(TextComponent(
+      text: state.life.toString(),
+      position: Vector2(40, 0),
+      textRenderer: TextPaint(
+        style: const TextStyle(fontSize: 28),
+      ),
+    ));
+    if (state.life < 0) {
+      game.pauseEngine();
+      game.overlays.add("GameOver");
+      bloc.reset();
+    }
   }
 }

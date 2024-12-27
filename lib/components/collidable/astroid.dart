@@ -19,9 +19,11 @@ class Asteroid extends SpriteAnimationComponent
           anchor: Anchor.center,
         );
   static const enemySize = 80.0;
+
   @override
   Future<void> onLoad() async {
     super.onLoad();
+
     animation = await game.loadSpriteAnimation(
       'animations/meteor.png',
       SpriteAnimationData.sequenced(
@@ -43,7 +45,6 @@ class Asteroid extends SpriteAnimationComponent
     }
     if (other is Player) {
       bloc.lifeDecrement();
-      print("hit player");
       removeFromParent();
     }
     super.onCollisionStart(intersectionPoints, other);

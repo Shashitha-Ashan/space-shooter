@@ -9,14 +9,20 @@ import '../space_ship_game.dart';
 class ShootButton extends PositionComponent
     with HasGameRef<SpaceShipGame>, TapCallbacks {
   ShootButton()
-      : super(size: Vector2(80, 50), angle: -0.9, anchor: Anchor.center);
+      : super(
+          size: Vector2(80, 50),
+          angle: -0.9,
+          anchor: Anchor.center,
+        );
 
   late Sprite sprite;
   late CircleComponent circleComponent;
 
   @override
   FutureOr<void> onLoad() async {
-    position = Vector2(game.size.x * 0.90, game.size.y * 0.8);
+    position = Vector2(game.size.x - 80,
+        game.size.y - 80); // game.size.x * 0.90, game.size.y * 0.8
+
     super.onLoad();
 
     circleComponent = CircleComponent(

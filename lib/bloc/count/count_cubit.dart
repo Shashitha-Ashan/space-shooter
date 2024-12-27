@@ -14,7 +14,6 @@ class CountCubit extends Cubit<CountState> {
       state.copyWith(
         score: state.score + 1,
         gameStatus: GameStatus.playing,
-        life: state.life,
       ),
     );
   }
@@ -22,10 +21,12 @@ class CountCubit extends Cubit<CountState> {
   void lifeDecrement() {
     emit(
       state.copyWith(
-        score: state.score,
-        gameStatus: GameStatus.playing,
         life: state.life - 1,
       ),
     );
+  }
+
+  void reset() {
+    emit(state.copyWith(score: 0, life: 3, gameStatus: GameStatus.initial));
   }
 }

@@ -7,7 +7,7 @@ import 'package:snake/space_ship_game.dart';
 class Player extends SpriteAnimationComponent with HasGameRef<SpaceShipGame> {
   Player()
       : super(
-          size: Vector2.all(80),
+          size: Vector2.all(100),
           position: Vector2(300, -200),
           anchor: Anchor.center,
         );

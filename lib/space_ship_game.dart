@@ -1,12 +1,9 @@
-import 'dart:math';
-
 import 'package:flame/components.dart';
 import 'package:flame/experimental.dart';
 
 import 'package:flame/game.dart';
 import 'package:flame_bloc/flame_bloc.dart';
 import 'package:snake/bloc/count/count_cubit.dart';
-import 'package:snake/bloc/life/life_cubit.dart';
 import 'package:snake/components/collidable/astroid.dart';
 import 'package:snake/components/count_component.dart';
 import 'package:snake/components/collidable/enemy.dart';
@@ -25,6 +22,7 @@ class SpaceShipGame extends FlameGame with HasCollisionDetection {
   final SpaceShipGameJoystick joystick = SpaceShipGameJoystick();
   final ParralaxBackground parallax = ParralaxBackground();
   final Player player = Player();
+  final LifeIndicator lifeIndicator = LifeIndicator();
   @override
   Future<void> onLoad() async {
     await super.onLoad();
@@ -35,9 +33,6 @@ class SpaceShipGame extends FlameGame with HasCollisionDetection {
       providers: [
         FlameBlocProvider<CountCubit, CountState>(
           create: () => CountCubit(),
-        ),
-        FlameBlocProvider<LifeCubit, LifeState>(
-          create: () => LifeCubit(),
         ),
       ],
       children: [
@@ -64,8 +59,18 @@ class SpaceShipGame extends FlameGame with HasCollisionDetection {
           area: Rectangle.fromLTWH(0, -500, size.x, -Asteroid.enemySize),
         ),
         CountComponent(),
-        LifeIndicator()
+        lifeIndicator
       ],
     ));
   }
+
+  void reset() {}
+
+  // @override
+  // void update(double dt) {
+  //   if (bloc.state.gameStatus == GameStatus.over) {
+  //     overlays.add("Game over");
+  //   }
+  //   super.update(dt);
+  // }
 }
