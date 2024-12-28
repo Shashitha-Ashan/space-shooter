@@ -38,6 +38,7 @@ class EnemyUfo extends SpriteAnimationComponent
   @override
   void onCollisionStart(
       Set<Vector2> intersectionPoints, PositionComponent other) {
+    super.onCollisionStart(intersectionPoints, other);
     if (other is Bullet) {
       bloc.increment();
       other.removeFromParent();
@@ -47,7 +48,7 @@ class EnemyUfo extends SpriteAnimationComponent
       bloc.lifeDecrement();
       removeFromParent();
     }
-    super.onCollisionStart(intersectionPoints, other);
+    game.explotionAudioPool.start();
   }
 
   @override

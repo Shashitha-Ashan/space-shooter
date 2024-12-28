@@ -39,7 +39,11 @@ class Player extends SpriteAnimationComponent with HasGameRef<SpaceShipGame> {
       autoStart: false,
     );
     game.add(_bulletSpawner);
-    add(RectangleHitbox());
+    add(PolygonHitbox([
+      Vector2(size.x / 2, 0),
+      Vector2(size.x, size.y),
+      Vector2(0, size.y),
+    ]));
   }
 
   void shoot() {
@@ -55,7 +59,7 @@ class Player extends SpriteAnimationComponent with HasGameRef<SpaceShipGame> {
     super.update(dt);
 
     if (gameRef.joystick.direction != JoystickDirection.idle) {
-      position += gameRef.joystick.delta * dt * 15;
+      position += gameRef.joystick.delta * dt * 10;
       angle = gameRef.joystick.delta.screenAngle() * 0.6;
       velocity = Vector2.zero();
     }

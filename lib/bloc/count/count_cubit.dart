@@ -27,6 +27,6 @@ class CountCubit extends Cubit<CountState> {
   }
 
   void reset() {
-    emit(state.copyWith(score: 0, life: 3, gameStatus: GameStatus.initial));
+    emit(state.copyWith(score: 0, life: 5, gameStatus: GameStatus.initial));
   }
 }

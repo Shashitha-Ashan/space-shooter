@@ -18,7 +18,7 @@ class Enemy extends SpriteAnimationComponent
           size: Vector2.all(enemySize),
           anchor: Anchor.center,
         );
-  static const enemySize = 50.0;
+  static const enemySize = 40.0;
   @override
   Future<void> onLoad() async {
     super.onLoad();
@@ -31,12 +31,13 @@ class Enemy extends SpriteAnimationComponent
         texturePosition: Vector2(0, -10),
       ),
     );
-    add(RectangleHitbox());
+    add(CircleHitbox());
   }
 
   @override
   void onCollisionStart(
       Set<Vector2> intersectionPoints, PositionComponent other) {
+    super.onCollisionStart(intersectionPoints, other);
     if (other is Bullet) {
       bloc.increment();
       removeFromParent();
@@ -45,7 +46,7 @@ class Enemy extends SpriteAnimationComponent
       bloc.lifeDecrement();
       removeFromParent();
     }
-    super.onCollisionStart(intersectionPoints, other);
+    game.explotionAudioPool.start();
   }
 
   @override

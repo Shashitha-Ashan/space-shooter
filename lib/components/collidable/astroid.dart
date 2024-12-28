@@ -18,7 +18,7 @@ class Asteroid extends SpriteAnimationComponent
           size: Vector2.all(enemySize),
           anchor: Anchor.center,
         );
-  static const enemySize = 80.0;
+  static const enemySize = 60.0;
 
   @override
   Future<void> onLoad() async {
@@ -39,6 +39,7 @@ class Asteroid extends SpriteAnimationComponent
   @override
   void onCollisionStart(
       Set<Vector2> intersectionPoints, PositionComponent other) {
+    super.onCollisionStart(intersectionPoints, other);
     if (other is Bullet) {
       bloc.increment();
       removeFromParent();
@@ -47,7 +48,7 @@ class Asteroid extends SpriteAnimationComponent
       bloc.lifeDecrement();
       removeFromParent();
     }
-    super.onCollisionStart(intersectionPoints, other);
+    game.explotionAudioPool.start();
   }
 
   @override

@@ -12,23 +12,32 @@ class CountComponent extends TextComponent
         HasGameRef<SpaceShipGame> {
   CountComponent()
       : super(
-          text: "0",
-          textRenderer: TextPaint(
-            style: const TextStyle(
-                color: Color(0xFFFFFFFF),
-                fontSize: 40,
-                fontWeight: FontWeight.bold),
-          ),
-        );
+            text: "0",
+            textRenderer: TextPaint(
+              style: const TextStyle(
+                  color: Color(0xFFFFFFFF),
+                  fontSize: 40,
+                  fontWeight: FontWeight.bold),
+            ),
+            anchor: Anchor.center,
+            size: Vector2(32, 32));
+  @override
+  int priority = 100;
 
   @override
   FutureOr<void> onLoad() {
     super.onLoad();
-    position = Vector2(game.size.x * 0.90, 0);
+    position = Vector2(game.size.x * 0.95, 20);
   }
 
   @override
   void onNewState(state) {
     text = state.score.toString();
+  }
+
+  @override
+  void onGameResize(Vector2 size) {
+    super.onGameResize(size);
+    position = Vector2(game.size.x * 0.95, 20);
   }
 }

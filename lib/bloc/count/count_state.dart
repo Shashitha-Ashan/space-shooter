@@ -9,7 +9,7 @@ class CountState extends Equatable {
   const CountState({
     this.score = 0,
     this.gameStatus = GameStatus.initial,
-    this.life = 3,
+    this.life = 5,
   });
 
   CountState copyWith({

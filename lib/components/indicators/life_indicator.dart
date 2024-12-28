@@ -20,7 +20,7 @@ class LifeIndicator extends SpriteComponent
     super.onLoad();
     sprite = await Sprite.load("heart.png");
     add(TextComponent(
-      text: "3",
+      text: "5",
       position: Vector2(40, 0),
       textRenderer: TextPaint(
         style: const TextStyle(fontSize: 28),
@@ -35,6 +35,8 @@ class LifeIndicator extends SpriteComponent
   }
 
   @override
+  int priority = 100;
+  @override
   void onNewState(state) {
     children.query<TextComponent>().forEach(remove);
     add(TextComponent(
@@ -48,6 +50,13 @@ class LifeIndicator extends SpriteComponent
       game.pauseEngine();
       game.overlays.add("GameOver");
       bloc.reset();
+      children.query<TextComponent>().forEach(remove);
     }
+  }
+
+  @override
+  void onGameResize(Vector2 size) {
+    super.onGameResize(size);
+    position = Vector2(game.size.x * 0.80, 20);
   }
 }

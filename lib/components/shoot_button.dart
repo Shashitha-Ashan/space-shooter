@@ -15,15 +15,16 @@ class ShootButton extends PositionComponent
           anchor: Anchor.center,
         );
 
+  @override
+  int priority = 100;
+
   late Sprite sprite;
   late CircleComponent circleComponent;
 
   @override
   FutureOr<void> onLoad() async {
-    position = Vector2(game.size.x - 80,
-        game.size.y - 80); // game.size.x * 0.90, game.size.y * 0.8
-
     super.onLoad();
+    position = Vector2(game.size.x * 0.90, game.size.y * 0.8);
 
     circleComponent = CircleComponent(
       radius: 55,
@@ -35,6 +36,12 @@ class ShootButton extends PositionComponent
     add(circleComponent);
 
     sprite = await Sprite.load('bullet.png');
+  }
+
+  @override
+  void onGameResize(Vector2 size) {
+    super.onGameResize(size);
+    position = Vector2(game.size.x * 0.90, game.size.y * 0.8);
   }
 
   @override

@@ -18,6 +18,7 @@ class Bullet extends PositionComponent with HasGameReference<SpaceShipGame> {
     add(RectangleHitbox(
       collisionType: CollisionType.passive,
     ));
+    game.shootAudioPool.start();
   }
 
   @override
